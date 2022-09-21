@@ -1,0 +1,6 @@
+type Comment {
+    id: Int!
+    content: String!
+    author: BlogMember
+    createdAt: Date
+}

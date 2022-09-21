@@ -1,0 +1,4 @@
+type BlogMember {
+    email: String!
+    name: String
+}
