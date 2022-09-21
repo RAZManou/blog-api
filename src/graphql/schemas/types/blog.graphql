@@ -1,0 +1,13 @@
+type Blog {
+    id: Int!
+    coverUri: String
+    title: String!
+    subTitle: String!
+    categories: [String!]
+    tags: [String!]
+    createdAt: Date
+}
+
+type Query {
+    getBlogs: [Blog!]
+}
