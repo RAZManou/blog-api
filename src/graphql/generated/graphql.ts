@@ -49,6 +49,7 @@ export type Mutation = {
     createBlog: Blog;
     commentBlog: Comment;
     likeOrDislikeBlog: Blog;
+    updateBlog: Blog;
 };
 
 export type MutationCreateBlogArgs = {
@@ -63,6 +64,10 @@ export type MutationLikeOrDislikeBlogArgs = {
     input: LikeOrDislikeBlogInput;
 };
 
+export type MutationUpdateBlogArgs = {
+    input: UpdateBlogInput;
+};
+
 export type CreateBlogInput = {
     coverUri?: Maybe<Scalars["String"]>;
     title: Scalars["String"];
@@ -70,6 +75,15 @@ export type CreateBlogInput = {
     categories?: Maybe<Array<Scalars["String"]>>;
     tags?: Maybe<Array<Scalars["String"]>>;
     contents?: Maybe<Array<ContentInput>>;
+};
+
+export type UpdateBlogInput = {
+    blogId: Scalars["Int"];
+    coverUri?: Maybe<Scalars["String"]>;
+    title?: Maybe<Scalars["String"]>;
+    subTitle?: Maybe<Scalars["String"]>;
+    categories?: Maybe<Array<Scalars["String"]>>;
+    tags?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type ContentInput = {
@@ -237,6 +251,7 @@ export type ResolversTypes = {
     Query: ResolverTypeWrapper<{}>;
     Mutation: ResolverTypeWrapper<{}>;
     CreateBlogInput: CreateBlogInput;
+    UpdateBlogInput: UpdateBlogInput;
     ContentInput: ContentInput;
     CommentBlogInput: CommentBlogInput;
     LikeOrDislikeBlogInput: LikeOrDislikeBlogInput;
@@ -255,6 +270,7 @@ export type ResolversParentTypes = {
     Query: {};
     Mutation: {};
     CreateBlogInput: CreateBlogInput;
+    UpdateBlogInput: UpdateBlogInput;
     ContentInput: ContentInput;
     CommentBlogInput: CommentBlogInput;
     LikeOrDislikeBlogInput: LikeOrDislikeBlogInput;
@@ -350,6 +366,12 @@ export type MutationResolvers<
         ParentType,
         ContextType,
         RequireFields<MutationLikeOrDislikeBlogArgs, "input">
+    >;
+    updateBlog?: Resolver<
+        ResolversTypes["Blog"],
+        ParentType,
+        ContextType,
+        RequireFields<MutationUpdateBlogArgs, "input">
     >;
 };
 
