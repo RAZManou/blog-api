@@ -8,6 +8,7 @@
     "scripts": {
         "start:server:local": "yarn prisma:migrate:dev && yarn prisma:generate && ts-node-dev  --debug --respawn --transpile-only ./src/index.ts",
         "build": "parcel build --no-minify src/index.ts --target=14 node && cp -r src/graphql/schemas/types dist/",
+        "graphql:generate": "graphql-codegen --config codegen.yml",
         "prisma:migrate:dev": "prisma migrate dev",
         "prisma:generate": "prisma generate"
     },
