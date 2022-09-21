@@ -11,3 +11,21 @@ type Blog {
 type Query {
     getBlogs: [Blog!]
 }
+
+type Mutation {
+    createBlog(input: CreateBlogInput!): Blog!
+}
+
+input CreateBlogInput {
+    coverUri: String
+    title: String!
+    subTitle: String!
+    categories: [String!]
+    tags: [String!]
+    contents: [ContentInput!]
+}
+
+input ContentInput {
+    title: String!
+    description: String!
+}
