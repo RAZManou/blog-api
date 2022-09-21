@@ -42,6 +42,11 @@ export type BlogRecentPostsArgs = {
 export type Query = {
     __typename?: "Query";
     getBlogs?: Maybe<Array<Blog>>;
+    getBlog: Blog;
+};
+
+export type QueryGetBlogArgs = {
+    id: Scalars["Int"];
 };
 
 export type Mutation = {
@@ -347,6 +352,12 @@ export type QueryResolvers<
         Maybe<Array<ResolversTypes["Blog"]>>,
         ParentType,
         ContextType
+    >;
+    getBlog?: Resolver<
+        ResolversTypes["Blog"],
+        ParentType,
+        ContextType,
+        RequireFields<QueryGetBlogArgs, "id">
     >;
 };
 

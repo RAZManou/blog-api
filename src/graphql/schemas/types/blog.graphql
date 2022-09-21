@@ -16,6 +16,7 @@ type Blog {
 
 type Query {
     getBlogs: [Blog!]
+    getBlog(id: Int!): Blog!
 }
 
 type Mutation {
