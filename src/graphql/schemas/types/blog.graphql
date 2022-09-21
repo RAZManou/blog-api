@@ -8,6 +8,8 @@ type Blog {
     contents: [Content!]
     comments: [Comment!]
     commentsCount: Int!
+    likes: [BlogMember!]
+    likesCount: Int!
     createdAt: Date
     recentPosts(count: Int): [Blog!]
 }
@@ -19,6 +21,7 @@ type Query {
 type Mutation {
     createBlog(input: CreateBlogInput!): Blog!
     commentBlog(input: CommentBlogInput!): Comment!
+    likeOrDislikeBlog(input: LikeOrDislikeBlogInput!): Blog!
 }
 
 input CreateBlogInput {
@@ -40,4 +43,9 @@ input CommentBlogInput {
     email: String!
     name: String
     content: String!
+}
+
+input LikeOrDislikeBlogInput {
+    blogId: Int!
+    email: String!
 }

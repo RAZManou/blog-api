@@ -29,6 +29,8 @@ export type Blog = {
     contents?: Maybe<Array<Content>>;
     comments?: Maybe<Array<Comment>>;
     commentsCount: Scalars["Int"];
+    likes?: Maybe<Array<BlogMember>>;
+    likesCount: Scalars["Int"];
     createdAt?: Maybe<Scalars["Date"]>;
     recentPosts?: Maybe<Array<Blog>>;
 };
@@ -46,6 +48,7 @@ export type Mutation = {
     __typename?: "Mutation";
     createBlog: Blog;
     commentBlog: Comment;
+    likeOrDislikeBlog: Blog;
 };
 
 export type MutationCreateBlogArgs = {
@@ -54,6 +57,10 @@ export type MutationCreateBlogArgs = {
 
 export type MutationCommentBlogArgs = {
     input: CommentBlogInput;
+};
+
+export type MutationLikeOrDislikeBlogArgs = {
+    input: LikeOrDislikeBlogInput;
 };
 
 export type CreateBlogInput = {
@@ -75,6 +82,11 @@ export type CommentBlogInput = {
     email: Scalars["String"];
     name?: Maybe<Scalars["String"]>;
     content: Scalars["String"];
+};
+
+export type LikeOrDislikeBlogInput = {
+    blogId: Scalars["Int"];
+    email: Scalars["String"];
 };
 
 export type BlogMember = {
@@ -227,6 +239,7 @@ export type ResolversTypes = {
     CreateBlogInput: CreateBlogInput;
     ContentInput: ContentInput;
     CommentBlogInput: CommentBlogInput;
+    LikeOrDislikeBlogInput: LikeOrDislikeBlogInput;
     BlogMember: ResolverTypeWrapper<BlogMember>;
     Comment: ResolverTypeWrapper<Comment>;
     Content: ResolverTypeWrapper<Content>;
@@ -244,6 +257,7 @@ export type ResolversParentTypes = {
     CreateBlogInput: CreateBlogInput;
     ContentInput: ContentInput;
     CommentBlogInput: CommentBlogInput;
+    LikeOrDislikeBlogInput: LikeOrDislikeBlogInput;
     BlogMember: BlogMember;
     Comment: Comment;
     Content: Content;
@@ -284,6 +298,12 @@ export type BlogResolvers<
         ContextType
     >;
     commentsCount?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+    likes?: Resolver<
+        Maybe<Array<ResolversTypes["BlogMember"]>>,
+        ParentType,
+        ContextType
+    >;
+    likesCount?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
     createdAt?: Resolver<
         Maybe<ResolversTypes["Date"]>,
         ParentType,
@@ -324,6 +344,12 @@ export type MutationResolvers<
         ParentType,
         ContextType,
         RequireFields<MutationCommentBlogArgs, "input">
+    >;
+    likeOrDislikeBlog?: Resolver<
+        ResolversTypes["Blog"],
+        ParentType,
+        ContextType,
+        RequireFields<MutationLikeOrDislikeBlogArgs, "input">
     >;
 };
 

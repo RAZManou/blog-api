@@ -1,4 +1,4 @@
-import { Blog, Comment, Content } from "@prisma/client";
+import { Blog, BlogMember, Comment, Content } from "@prisma/client";
 import { BlogRecentPostsArgs } from "src/graphql/generated/graphql";
 import { Context } from "../../../types";
 
@@ -25,6 +25,20 @@ export default {
         return await ctx.prisma.comment.count({
             where: {
                 blogId: blog.id,
+            },
+        });
+    },
+    likes: async (blog: Blog, _: any, ctx: Context): Promise<BlogMember[]> => {
+        return await ctx.prisma.blog
+            .findUnique({
+                where: { id: blog.id },
+            })
+            .likes();
+    },
+    likesCount: async (blog: Blog, _: any, ctx: Context): Promise<number> => {
+        return await ctx.prisma.blogMember.count({
+            where: {
+                likedBlogs: { some: { id: blog.id } },
             },
         });
     },
