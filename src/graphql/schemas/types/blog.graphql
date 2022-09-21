@@ -5,6 +5,7 @@ type Blog {
     subTitle: String!
     categories: [String!]
     tags: [String!]
+    contents: [Content!]
     createdAt: Date
 }
 
