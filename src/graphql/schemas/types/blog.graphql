@@ -6,6 +6,7 @@ type Blog {
     categories: [String!]
     tags: [String!]
     contents: [Content!]
+    comments: [Comment!]
     createdAt: Date
 }
 
@@ -15,6 +16,7 @@ type Query {
 
 type Mutation {
     createBlog(input: CreateBlogInput!): Blog!
+    commentBlog(input: CommentBlogInput!): Comment!
 }
 
 input CreateBlogInput {
@@ -29,4 +31,11 @@ input CreateBlogInput {
 input ContentInput {
     title: String!
     description: String!
+}
+
+input CommentBlogInput {
+    blogId: Int!
+    email: String!
+    name: String
+    content: String!
 }

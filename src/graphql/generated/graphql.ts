@@ -21,6 +21,7 @@ export type Blog = {
   categories?: Maybe<Array<Scalars['String']>>;
   tags?: Maybe<Array<Scalars['String']>>;
   contents?: Maybe<Array<Content>>;
+  comments?: Maybe<Array<Comment>>;
   createdAt?: Maybe<Scalars['Date']>;
 };
 
@@ -32,11 +33,17 @@ export type Query = {
 export type Mutation = {
    __typename?: 'Mutation';
   createBlog: Blog;
+  commentBlog: Comment;
 };
 
 
 export type MutationCreateBlogArgs = {
   input: CreateBlogInput;
+};
+
+
+export type MutationCommentBlogArgs = {
+  input: CommentBlogInput;
 };
 
 export type CreateBlogInput = {
@@ -51,6 +58,27 @@ export type CreateBlogInput = {
 export type ContentInput = {
   title: Scalars['String'];
   description: Scalars['String'];
+};
+
+export type CommentBlogInput = {
+  blogId: Scalars['Int'];
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  content: Scalars['String'];
+};
+
+export type BlogMember = {
+   __typename?: 'BlogMember';
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Comment = {
+   __typename?: 'Comment';
+  id: Scalars['Int'];
+  content: Scalars['String'];
+  author?: Maybe<BlogMember>;
+  createdAt?: Maybe<Scalars['Date']>;
 };
 
 export type Content = {
@@ -151,6 +179,9 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   CreateBlogInput: CreateBlogInput;
   ContentInput: ContentInput;
+  CommentBlogInput: CommentBlogInput;
+  BlogMember: ResolverTypeWrapper<BlogMember>;
+  Comment: ResolverTypeWrapper<Comment>;
   Content: ResolverTypeWrapper<Content>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -165,6 +196,9 @@ export type ResolversParentTypes = {
   Mutation: {};
   CreateBlogInput: CreateBlogInput;
   ContentInput: ContentInput;
+  CommentBlogInput: CommentBlogInput;
+  BlogMember: BlogMember;
+  Comment: Comment;
   Content: Content;
   Date: Scalars['Date'];
   Boolean: Scalars['Boolean'];
@@ -178,6 +212,7 @@ export type BlogResolvers<ContextType = any, ParentType extends ResolversParentT
   categories?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   tags?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   contents?: Resolver<Maybe<Array<ResolversTypes['Content']>>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -188,6 +223,21 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createBlog?: Resolver<ResolversTypes['Blog'], ParentType, ContextType, RequireFields<MutationCreateBlogArgs, 'input'>>;
+  commentBlog?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCommentBlogArgs, 'input'>>;
+};
+
+export type BlogMemberResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlogMember'] = ResolversParentTypes['BlogMember']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['BlogMember']>, ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Content'] = ResolversParentTypes['Content']> = {
@@ -205,6 +255,8 @@ export type Resolvers<ContextType = any> = {
   Blog?: BlogResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  BlogMember?: BlogMemberResolvers<ContextType>;
+  Comment?: CommentResolvers<ContextType>;
   Content?: ContentResolvers<ContextType>;
   Date?: GraphQLScalarType;
 };
