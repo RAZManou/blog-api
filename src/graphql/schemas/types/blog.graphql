@@ -8,6 +8,7 @@ type Blog {
     contents: [Content!]
     comments: [Comment!]
     createdAt: Date
+    recentPosts(count: Int): [Blog!]
 }
 
 type Query {

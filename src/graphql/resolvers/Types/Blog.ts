@@ -1,4 +1,5 @@
 import { Blog, Comment, Content } from "@prisma/client";
+import { BlogRecentPostsArgs } from "src/graphql/generated/graphql";
 import { Context } from "../../../types";
 
 export default {
@@ -15,5 +16,18 @@ export default {
                 where: { id: blog.id },
             })
             .comments();
+    },
+    recentPosts: async (
+        blog: Blog,
+        args: BlogRecentPostsArgs,
+        ctx: Context
+    ): Promise<Blog[]> => {
+        return await ctx.prisma.blog.findMany({
+            where: { id: { not: blog.id } },
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: args.count || 4,
+        });
     },
 };
