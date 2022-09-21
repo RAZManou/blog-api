@@ -50,6 +50,7 @@ export type Mutation = {
     commentBlog: Comment;
     likeOrDislikeBlog: Blog;
     updateBlog: Blog;
+    deleteBlog: Blog;
 };
 
 export type MutationCreateBlogArgs = {
@@ -66,6 +67,10 @@ export type MutationLikeOrDislikeBlogArgs = {
 
 export type MutationUpdateBlogArgs = {
     input: UpdateBlogInput;
+};
+
+export type MutationDeleteBlogArgs = {
+    blogId: Scalars["Int"];
 };
 
 export type CreateBlogInput = {
@@ -372,6 +377,12 @@ export type MutationResolvers<
         ParentType,
         ContextType,
         RequireFields<MutationUpdateBlogArgs, "input">
+    >;
+    deleteBlog?: Resolver<
+        ResolversTypes["Blog"],
+        ParentType,
+        ContextType,
+        RequireFields<MutationDeleteBlogArgs, "blogId">
     >;
 };
 
