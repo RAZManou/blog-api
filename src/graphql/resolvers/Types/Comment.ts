@@ -1,4 +1,4 @@
-import { Blog, BlogMember, Comment, Content } from "@prisma/client";
+import { BlogMember, Comment } from "@prisma/client";
 import { Context } from "../../../types";
 
 export default {

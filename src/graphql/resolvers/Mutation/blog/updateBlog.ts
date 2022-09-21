@@ -1,10 +1,7 @@
-import { Blog, Comment } from "@prisma/client";
+import { Blog } from "@prisma/client";
 import { ApolloError } from "apollo-server";
 import { ERROR_CODES, ERROR_MESSAGES } from "../../../../graphql/errors/errors";
-import {
-    MutationCommentBlogArgs,
-    MutationUpdateBlogArgs,
-} from "src/graphql/generated/graphql";
+import { MutationUpdateBlogArgs } from "src/graphql/generated/graphql";
 import { Context } from "../../../../types";
 
 export default {
