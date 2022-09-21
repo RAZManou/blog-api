@@ -56,6 +56,8 @@ export type Mutation = {
     likeOrDislikeBlog: Blog;
     updateBlog: Blog;
     deleteBlog: Blog;
+    updateContent: Content;
+    deleteContent: Content;
 };
 
 export type MutationCreateBlogArgs = {
@@ -76,6 +78,14 @@ export type MutationUpdateBlogArgs = {
 
 export type MutationDeleteBlogArgs = {
     blogId: Scalars["Int"];
+};
+
+export type MutationUpdateContentArgs = {
+    input: UpdateContentInput;
+};
+
+export type MutationDeleteContentArgs = {
+    contentId: Scalars["Int"];
 };
 
 export type CreateBlogInput = {
@@ -132,6 +142,12 @@ export type Content = {
     id: Scalars["Int"];
     title: Scalars["String"];
     description: Scalars["String"];
+};
+
+export type UpdateContentInput = {
+    contentId: Scalars["Int"];
+    title?: Maybe<Scalars["String"]>;
+    description?: Maybe<Scalars["String"]>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -268,6 +284,7 @@ export type ResolversTypes = {
     BlogMember: ResolverTypeWrapper<BlogMember>;
     Comment: ResolverTypeWrapper<Comment>;
     Content: ResolverTypeWrapper<Content>;
+    UpdateContentInput: UpdateContentInput;
     Date: ResolverTypeWrapper<Scalars["Date"]>;
     Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
@@ -287,6 +304,7 @@ export type ResolversParentTypes = {
     BlogMember: BlogMember;
     Comment: Comment;
     Content: Content;
+    UpdateContentInput: UpdateContentInput;
     Date: Scalars["Date"];
     Boolean: Scalars["Boolean"];
 };
@@ -394,6 +412,18 @@ export type MutationResolvers<
         ParentType,
         ContextType,
         RequireFields<MutationDeleteBlogArgs, "blogId">
+    >;
+    updateContent?: Resolver<
+        ResolversTypes["Content"],
+        ParentType,
+        ContextType,
+        RequireFields<MutationUpdateContentArgs, "input">
+    >;
+    deleteContent?: Resolver<
+        ResolversTypes["Content"],
+        ParentType,
+        ContextType,
+        RequireFields<MutationDeleteContentArgs, "contentId">
     >;
 };
 

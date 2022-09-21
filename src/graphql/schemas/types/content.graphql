@@ -3,3 +3,14 @@ type Content {
     title: String!
     description: String!
 }
+
+type Mutation {
+    updateContent(input: UpdateContentInput!): Content!
+    deleteContent(contentId: Int!): Content!
+}
+
+input UpdateContentInput {
+    contentId: Int!
+    title: String
+    description: String
+}
