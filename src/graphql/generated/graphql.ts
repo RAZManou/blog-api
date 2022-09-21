@@ -28,6 +28,7 @@ export type Blog = {
     tags?: Maybe<Array<Scalars["String"]>>;
     contents?: Maybe<Array<Content>>;
     comments?: Maybe<Array<Comment>>;
+    commentsCount: Scalars["Int"];
     createdAt?: Maybe<Scalars["Date"]>;
     recentPosts?: Maybe<Array<Blog>>;
 };
@@ -282,6 +283,7 @@ export type BlogResolvers<
         ParentType,
         ContextType
     >;
+    commentsCount?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
     createdAt?: Resolver<
         Maybe<ResolversTypes["Date"]>,
         ParentType,

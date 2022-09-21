@@ -17,6 +17,17 @@ export default {
             })
             .comments();
     },
+    commentsCount: async (
+        blog: Blog,
+        _: any,
+        ctx: Context
+    ): Promise<number> => {
+        return await ctx.prisma.comment.count({
+            where: {
+                blogId: blog.id,
+            },
+        });
+    },
     recentPosts: async (
         blog: Blog,
         args: BlogRecentPostsArgs,

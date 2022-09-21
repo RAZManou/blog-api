@@ -7,6 +7,7 @@ type Blog {
     tags: [String!]
     contents: [Content!]
     comments: [Comment!]
+    commentsCount: Int!
     createdAt: Date
     recentPosts(count: Int): [Blog!]
 }
